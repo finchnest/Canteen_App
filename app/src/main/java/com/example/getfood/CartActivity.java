@@ -171,22 +171,33 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void onStartTransaction() {
-        PaytmPGService Service = PaytmPGService.getProductionService();
-        Map<String, String> paramMap = new HashMap<String, String>();
+        PaytmPGService Service = PaytmPGService.getStagingService();
+//        Map<String, String> paramMap = new HashMap<String, String>();
 
 
         // these are mandatory parameters
 
-        paramMap.put("CALLBACK_URL","https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp");
-        paramMap.put("CHANNEL_ID","WAP");
-        paramMap.put("CHECKSUMHASH","7FOTUu30HAAsqZBHRgz5jl1OU7fvAMGK0VWuGiMAOmBKq1L9H07ozWvntxYuTUGddbDyMSXJiaNyLnRfTvNUgK87mq4Vd4gyv+nWr0qZhBc=");
-        paramMap.put("CUST_ID","testing12345");
-        paramMap.put("INDUSTRY_TYPE_ID","Retail");
-        paramMap.put("MID","GetFoo88084336099945");
-        paramMap.put("ORDER_ID","11111111");
-        paramMap.put("TXN_AMOUNT",String.valueOf(calcTotal()));
-        paramMap.put("WEBSITE","GetFood");
+//        paramMap.put("CALLBACK_URL","https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp");
+//        paramMap.put("CHANNEL_ID","WAP");
+//        paramMap.put("CHECKSUMHASH","7FOTUu30HAAsqZBHRgz5jl1OU7fvAMGK0VWuGiMAOmBKq1L9H07ozWvntxYuTUGddbDyMSXJiaNyLnRfTvNUgK87mq4Vd4gyv+nWr0qZhBc=");
+//        paramMap.put("CUST_ID","testing12345");
+//        paramMap.put("INDUSTRY_TYPE_ID","Retail");
+//        paramMap.put("MID","GetFoo88084336099945");
+//        paramMap.put("ORDER_ID","11111111");
+////        update amount to total later
+//        paramMap.put("TXN_AMOUNT","250");
+//        paramMap.put("WEBSITE","GetFood");
 
+        Map<String, String> paramMap = new HashMap<String,String>();
+        paramMap.put( "MID" , "GetFoo88084336099945");
+        paramMap.put( "ORDER_ID" , "ORDER00000001");
+        paramMap.put( "CUST_ID" , "testing12345");
+        paramMap.put( "INDUSTRY_TYPE_ID" , "Retail");
+        paramMap.put( "CHANNEL_ID" , "WAP");
+        paramMap.put( "TXN_AMOUNT" , "250");
+        paramMap.put( "WEBSITE" , "PAYTM_WEBSITE");
+        paramMap.put( "CALLBACK_URL","https://securegw.paytm.in/theia/paytmCallback?ORDER_ID=ORDER00000001");
+        paramMap.put( "CHECKSUMHASH" , "4jTq9ewemlCUp4zfzgozVmhdqB3tCsWLjKCwSyWb1kUH1IkZIORHyPfPEKCX12GnSMaM\\/lTwM7VMYYzFdEOxBqlzWuT9et5fpiqjbCj0428=");
 /*
         paramMap.put("MID" , "WorldP64425807474247");
         paramMap.put("ORDER_ID" , "210lkldfka2a27");
