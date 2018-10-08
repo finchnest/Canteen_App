@@ -23,7 +23,7 @@
             android:background="#60f9cbc8"
             android:drawableStart="@drawable/ic_person_black_24dp"
             android:hint=" Email ID"
-            android:padding="8dp"
+            android:padding="9dp"
             android:textColor="#fff"
             android:textColorHint="#d3d3d3" />
 
