@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.getfood.Fragment.FoodCategoryFragment;
-import com.example.getfood.Models.CartItem;
 import com.example.getfood.R;
 import com.example.getfood.Utils.AlertUtils;
 import com.example.getfood.Utils.OnDialogButtonClickListener;
@@ -40,7 +39,8 @@ import java.util.ArrayList;
 public class FoodMenuDisplayActivity extends AppCompatActivity {
 
 
-    public static ArrayList<CartItem> cartItems;
+    public static ArrayList<String> cartItemName, cartItemCategory;
+    public static ArrayList<Integer> cartItemQuantity, cartItemPrice;
     FloatingActionButton floatingActionButton;
     CoordinatorLayout coordinatorLayoutParent;
     FirebaseAuth auth;
@@ -54,7 +54,10 @@ public class FoodMenuDisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_menu_display);
 
-        cartItems = new ArrayList<>();
+        cartItemName = new ArrayList<>();
+        cartItemCategory = new ArrayList<>();
+        cartItemPrice = new ArrayList<>();
+        cartItemQuantity = new ArrayList<>();
         helpButton = findViewById(R.id.helpButton);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -107,20 +110,23 @@ public class FoodMenuDisplayActivity extends AppCompatActivity {
                         // close drawer when item is tapped
                         if (menuItem.getItemId() == R.id.nav_cart) {
 //                            Toast.makeText(FoodMenuDisplayActivity.this, "Cart Pressed", Toast.LENGTH_SHORT).show();
-                            if (cartItems.isEmpty())
+                            if (cartItemName.isEmpty())
                                 makeText(getString(R.string.cart_empty));
                             else
                                 showCart();
                         } else if (menuItem.getItemId() == R.id.nav_order) {
                             Intent orders = new Intent(FoodMenuDisplayActivity.this, OrderListActivity.class);
                             String email = auth.getCurrentUser().getEmail();
-                            String rollNo = email.substring(0, email.indexOf("@"));
+                            String rollNo = email.substring(0, email.indexOf(getString(R.string.email_replace)));
                             orders.putExtra(getString(R.string.i_roll_no), rollNo);
                             startActivity(orders);
+//                            Toast.makeText(FoodMenuDisplayActivity.this, "Order Pressed", Toast.LENGTH_SHORT).show();
                         } else if (menuItem.getItemId() == R.id.nav_terms) {
                             startActivity(new Intent(FoodMenuDisplayActivity.this, TermsActivity.class));
+//                            Toast.makeText(FoodMenuDisplayActivity.this, "Terms & Conditions Pressed", Toast.LENGTH_SHORT).show();
                         } else if (menuItem.getItemId() == R.id.nav_map) {
                             startActivity(new Intent(FoodMenuDisplayActivity.this, MapsActivity.class));
+//                            Toast.makeText(FoodMenuDisplayActivity.this, "Terms & Conditions Pressed", Toast.LENGTH_SHORT).show();
                         } else if (menuItem.getItemId() == R.id.nav_contact) {
 
                             Intent email = new Intent(Intent.ACTION_SEND);
@@ -176,7 +182,7 @@ public class FoodMenuDisplayActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (cartItems.isEmpty())
+                if (cartItemName.isEmpty())
                     makeText(getString(R.string.cart_empty));
                 else
                     showCart();
@@ -215,6 +221,9 @@ public class FoodMenuDisplayActivity extends AppCompatActivity {
                 prevTime = System.currentTimeMillis();
                 exitCount = 1;
             } else {
+//                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+//                homeIntent.addCategory(Intent.CATEGORY_HOME);
+//                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                startActivity(homeIntent);
                 finishAffinity();
 
